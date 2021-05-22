@@ -1,7 +1,7 @@
 #Pacman in Python with PyGame
 #https://github.com/hbokmann/Pacman
-  
-import pygame._view
+import pygame
+from pygame import *
   
 black = (0,0,0)
 white = (255,255,255)
@@ -354,9 +354,11 @@ background = background.convert()
 # Fill the screen with a black background
 background.fill(black)
 
-
-
 clock = pygame.time.Clock()
+# Events
+
+ADDGHOSTS = pygame.USEREVENT + 5
+pygame.time.set_timer(ADDGHOSTS,30000)
 
 pygame.font.init()
 font = pygame.font.Font("freesansbold.ttf", 24)
@@ -474,7 +476,24 @@ def startGame():
                   Pacman.changespeed(0,30)
               if event.key == pygame.K_DOWN:
                   Pacman.changespeed(0,-30)
-          
+
+          elif event.type == ADDGHOSTS:
+              Blinky = Ghost(w, b_h, "images/Blinky.png")
+              monsta_list.add(Blinky)
+              all_sprites_list.add(Blinky)
+
+              Pinky = Ghost(w, m_h, "images/Pinky.png")
+              monsta_list.add(Pinky)
+              all_sprites_list.add(Pinky)
+
+              Inky = Ghost(i_w, m_h, "images/Inky.png")
+              monsta_list.add(Inky)
+              all_sprites_list.add(Inky)
+
+              Clyde = Ghost(c_w, m_h, "images/Clyde.png")
+              monsta_list.add(Clyde)
+              all_sprites_list.add(Clyde)
+
       # ALL EVENT PROCESSING SHOULD GO ABOVE THIS COMMENT
    
       # ALL GAME LOGIC SHOULD GO BELOW THIS COMMENT
@@ -529,8 +548,18 @@ def startGame():
 
       monsta_hit_list = pygame.sprite.spritecollide(Pacman, monsta_list, False)
 
+      if len(monsta_list) == (4 * 32):
+          doNext("Game over",235,all_sprites_list,block_list,monsta_list,pacman_collide,wall_list,gate)
+
+
+
       if monsta_hit_list:
-        doNext("Game Over",235,all_sprites_list,block_list,monsta_list,pacman_collide,wall_list,gate)
+        for monsta in monsta_hit_list:
+            monsta_list.remove(monsta)
+            monsta_hit_list.remove(monsta)
+            monsta.kill()
+
+
 
       # ALL CODE TO DRAW SHOULD GO ABOVE THIS COMMENT
       
