@@ -7,7 +7,8 @@ The rules are similar to Pac-Man with several notable exceptions:
 - Each ghost that has not yet been hit multiplies itself every 30 seconds (the infection grows).
 - The goal of the game is to collect all the dots before the number of ghosts grows to 32 times the original number.
 
-### Orginal pac-man implementation  <a href="https://github.com/hbokmann/Pacman">hbokmann/Pacman</a>
+
+based from  <a href="https://github.com/hbokmann/Pacman">hbokmann/Pacman</a>
 
 ![Pacman Game Window](https://raw.github.com/hbokmann/Pacman/master/images/pacman.jpg)
 
